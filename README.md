@@ -1,3 +1,11 @@
+<h1 align="center">
+  <br>
+  <a href="https://github.com/Shardbyte/bot-red"><img src="https://imgur.com/pY1WUFX.png" alt="Red - Discord Bot (Dockerized)"></a>
+  <br>
+  Red Discord Bot (Dockerized)
+  <br>
+</h1>
+
 # Red-DiscordBot V3.5.5
 The newest Red-DiscordBot in a convenient multi-arch container
 
