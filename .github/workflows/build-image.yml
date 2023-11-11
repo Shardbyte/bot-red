@@ -26,8 +26,8 @@ jobs:
       packages: write
     env:
       TITLE: Red-DiscordBot
-      GHCR_SLUG: ghcr.io/${{ github.repository_owner }}/bot-red
-      DOCK_SLUG: docker.io/${{ github.repository_owner }}/bot-red
+      GHCR_SLUG: ghcr.io/shardbyte/bot-red
+      DOCK_SLUG: docker.io/shardbyte/bot-red
     steps:
       -
         name: Checkout
