@@ -1,7 +1,6 @@
 name: build-image
 
 on:
-  repository_dispatch:
   push:
     branches:
       - master
