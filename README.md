@@ -1,11 +1,8 @@
-# Red-DiscordBot V3
+# Red-DiscordBot V3.5.5
 The newest Red-DiscordBot in a convenient multi-arch container
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/red-discordbot)](https://hub.docker.com/r/phasecorex/red-discordbot)
-[![Build Status](https://github.com/PhasecoreX/docker-red-discordbot/workflows/build/badge.svg)](https://github.com/PhasecoreX/docker-red-discordbot/actions?query=workflow%3Abuild)
-[![Chat Support](https://img.shields.io/discord/608057344487849989)](https://discord.gg/QzdPp2b)
-[![BuyMeACoffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange)](https://buymeacoff.ee/phasecorex)
-[![PayPal](https://img.shields.io/badge/paypal-donate-blue)](https://paypal.me/pcx)
+[![Docker Pulls](https://img.shields.io/docker/pulls/shardbyte/bot-red)](https://hub.docker.com/r/shardbyte/bot-red)
+[![Build Status](https://github.com/Shardbyte/bot-red/workflows/build/badge.svg)](https://github.com/Shardbyte/bot-red/actions?query=workflow%3Abuild)
 
 ## Why This Image?
 
@@ -23,7 +20,7 @@ There are many reasons that this image is better (or as good as) the others out 
 Just do this:
 
 ```
-docker run -v /local_folder_for_persistence:/data -e TOKEN=bot_token -e PREFIX=. phasecorex/red-discordbot
+docker run -v /local_folder_for_persistence:/data -e TOKEN=bot_token -e PREFIX=. shardbyte/bot-red
 ```
 
 Red-DiscordBot will start up with the specified token and prefix, and after updating, it will show the invite URL. Use this to add the bot to your server.
@@ -50,7 +47,7 @@ Once you like how it's working, you can add these:
 You can also remove the `OWNER`, `TOKEN`, and `PREFIX`es after the initial run, as they are saved to the bots config. This allows for you to use the `[p]set prefix` command, and makes subsequent runs as simple as:
 
 ```
-docker run -v /local_folder_for_persistence:/data phasecorex/red-discordbot
+docker run -v /local_folder_for_persistence:/data shardbyte/bot-red
 ```
 
 Enjoy!
@@ -82,7 +79,7 @@ version: "3.2"
 services:
   redbot:
     container_name: redbot
-    image: phasecorex/red-discordbot
+    image: shardbyte/bot-red
     restart: unless-stopped
     volumes:
       - ./redbot:/data
@@ -99,7 +96,7 @@ And again, subsequent runs you can omit the `OWNER`, `TOKEN`, and `PREFIX`es fro
 
 If you find out that Red-DiscordBot was updated, simply issue the `[p]restart` command. Red-DiscordBot will gracefully shut down, update itself, and then start back up.
 
-Consider using the [UpdateNotify](https://github.com/PhasecoreX/PCXCogs) cog I created to get notifications when Red-DiscordBot (or this Docker image) updates!
+Consider using the [UpdateNotify](https://github.com/PhasecoreX/PCXCogs) cog to get notifications when Red-DiscordBot (or this Docker image) updates!
 
 ## More Advanced Stuff
 
@@ -120,13 +117,13 @@ Any software that needs to communicate to Red-DiscordBot via RPC can only do so 
 `redbot-setup` can be run manually, in case you want to set up the bot yourself or to convert it's datastore. It can only be run in interactive mode, like so:
 
 ```
-docker run -it --rm -v /local_folder_for_persistence:/data phasecorex/red-discordbot redbot-setup [OPTIONS] COMMAND [ARGS]...
+docker run -it --rm -v /local_folder_for_persistence:/data shardbyte/bot-red redbot-setup [OPTIONS] COMMAND [ARGS]...
 ```
 
 By default, Red-DiscordBot will use the JSON datastore. If you would like to use a different datastore (Postgres for example), specify it in the `STORAGE_TYPE` environment variable:
 
 ```
-docker run -it --rm -v /local_folder_for_persistence:/data -e STORAGE_TYPE=postgres phasecorex/red-discordbot redbot-setup [OPTIONS] COMMAND [ARGS]...
+docker run -it --rm -v /local_folder_for_persistence:/data -e STORAGE_TYPE=postgres shardbyte/bot-red redbot-setup [OPTIONS] COMMAND [ARGS]...
 ```
 
 You can [check the official Red-DiscordBot documentation](https://docs.discord.red/en/latest/install_linux_mac.html#installing-red) to find out what datastores are available. The example on the page looks like this:
@@ -201,7 +198,7 @@ This image will run Red-DiscordBot as a non-root user. This is great, until you 
 Some pip packages will require external libraries, so some of the popular ones (the ones I need for my bot) are included in the `extra`/`extra-audio` tag. If you find that Red-DiscordBot cannot install a popular cog, you can either let me know for including the package in this tag, or you can extend this image, running `apt-get install -y --no-install-recommends` to install your dependencies:
 
 ```dockerfile
-FROM phasecorex/red-discordbot
+FROM shardbyte/bot-red
 
 RUN apt-get update; \
     apt-get install -y --no-install-recommends \
