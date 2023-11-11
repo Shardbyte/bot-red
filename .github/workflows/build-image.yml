@@ -16,8 +16,6 @@ on:
       - Dockerfile
       - .github/workflows/build.yml
       - root/**
-    types:
-      - upstream_image_update
 
 jobs:
   docker:
