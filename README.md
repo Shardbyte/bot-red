@@ -2,7 +2,7 @@
 The newest Red-DiscordBot in a convenient multi-arch container
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/shardbyte/bot-red)](https://hub.docker.com/r/shardbyte/bot-red)
-[![Build Status](https://github.com/Shardbyte/bot-red/workflows/build/badge.svg)](https://github.com/Shardbyte/bot-red/actions?query=workflow%3Abuild)
+[![build-image](https://github.com/Shardbyte/bot-red/actions/workflows/build-image.yml/badge.svg)](https://github.com/Shardbyte/bot-red/actions/workflows/build-image.yml)
 
 ## Why This Image?
 
