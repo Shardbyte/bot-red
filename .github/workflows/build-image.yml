@@ -5,21 +5,13 @@ name: build-image
 on:
   push:
     branches:
-      - master
-    paths:
-      - Dockerfile
-      - .github/workflows/build.yml
-      - root/**
+      - main
   pull_request:
     branches:
-      - master
-    paths:
-      - Dockerfile
-      - .github/workflows/build.yml
-      - root/**
-  repository_dispatch:
-    types:
-      - upstream_image_update
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 13 * * 1'
 
 jobs:
   docker:
