@@ -26,9 +26,9 @@ jobs:
     permissions:
       packages: write
     env:
-      TITLE: Red-DiscordBot
-      GHCR_SLUG: ghcr.io/phasecorex/red-discordbot
-      DOCK_SLUG: docker.io/phasecorex/red-discordbot
+      TITLE: bot-red
+      GHCR_SLUG: ghcr.io/Shardbyte/bot-red
+      DOCK_SLUG: docker.io/shardbyte/bot-red
     steps:
       -
         name: Checkout

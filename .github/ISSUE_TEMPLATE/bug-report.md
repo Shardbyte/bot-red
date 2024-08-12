@@ -3,7 +3,7 @@ name: Bug Report
 about: Something is broken!
 title: ''
 labels: bug
-assignees: PhasecoreX
+assignees: Shardbyte
 
 ---
 

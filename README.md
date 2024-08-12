@@ -1,11 +1,39 @@
-# Red-DiscordBot V3
-The newest Red-DiscordBot in a convenient multi-arch container
+<!--
+#
+#
+###########################
+#                         #
+#  Saint @ Shardbyte.com  #
+#                         #
+###########################
+# Author: Shardbyte (Saint)
+#
+#
+-->
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/red-discordbot)](https://hub.docker.com/r/phasecorex/red-discordbot)
-[![Build Status](https://github.com/PhasecoreX/docker-red-discordbot/workflows/build/badge.svg)](https://github.com/PhasecoreX/docker-red-discordbot/actions?query=workflow%3Abuild)
-[![Chat Support](https://img.shields.io/discord/608057344487849989)](https://discord.gg/QzdPp2b)
-[![BuyMeACoffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange)](https://buymeacoff.ee/phasecorex)
-[![PayPal](https://img.shields.io/badge/paypal-donate-blue)](https://paypal.me/pcx)
+<div id="header" align="center">
+  <img src="https://raw.githubusercontent.com/Shardbyte/Shardbyte/main/img/logo-shardbyte-master-light.webp" alt="logo-shardbyte" width="150"/>
+</div>
+
+---
+
+<div id="header" align="center">
+  <img src="img/bot-red-shardbyte.png" alt="bot-red-shardbyte" width="150"/>
+</div>
+
+
+<h1 align="center">
+  Red Discord Bot
+</h1>
+
+<h2 align="center">
+  The newest Red-DiscordBot in a convenient multi-arch container
+</h2>
+
+<p align="center">
+    <a href="https://hub.docker.com/r/shardbyte/bot-red"><img src="https://img.shields.io/docker/pulls/shardbyte/bot-red" /></a>
+    <a href="https://github.com/Shardbyte/bot-red/workflows/build/badge.svg"><img src="https://github.com/Shardbyte/bot-red/actions?query=workflow%3Abuild" /></a>
+</p>
 
 ## Why This Image?
 
@@ -23,7 +51,7 @@ There are many reasons that this image is better (or as good as) the others out 
 The basic run command looks like this:
 
 ```
-docker run -v /local/folder/for/persistence:/data -e TOKEN=bot_token -e PREFIX=. phasecorex/red-discordbot
+docker run -v /local/folder/for/persistence:/data -e TOKEN=bot_token -e PREFIX=. shardbyte/bot-red
 ```
 
 At minimum, you will need to replace the `/local/folder/for/persistence` as well as the `bot_token`. Red-DiscordBot will start up with the specified token and prefix, and after updating, it will show the invite URL. Use this to add the bot to your server.
@@ -50,7 +78,7 @@ Once you like how it's working, you can add these:
 You can also remove the `OWNER`, `TOKEN`, and `PREFIX`es after the initial run, as they are saved to the bots config. This allows for you to use the `[p]set prefix` command, and makes subsequent runs as simple as:
 
 ```
-docker run -v /local_folder_for_persistence:/data phasecorex/red-discordbot
+docker run -v /local_folder_for_persistence:/data shardbyte/bot-red
 ```
 
 Enjoy!
@@ -78,19 +106,31 @@ You can of course just leave the environment variables in place, but if you want
 As with any Docker run command, you can also specify it as a docker-compose.yml file for easier management. Here is an example:
 
 ```yaml
-version: "3.2"
+# Docker Compose | compose-redbot.yml
+#
+#
 services:
-  redbot:
-    container_name: redbot
-    image: phasecorex/red-discordbot
+#######################################################
+  discord_redbot:
+    image: 'shardbyte/bot-red:latest'
+    container_name: discord_redbot
     restart: unless-stopped
-    volumes:
-      - ./redbot:/data
     environment:
-      - TOKEN=your_bot_token_goes_here
-      - PREFIX=.
-      - TZ=America/Detroit
-      - PUID=1000
+      TOKEN: 'YOUR_BOT_TOKEN'
+      TZ: 'Etc/UTC'
+      PREFIX: '/'
+      PUID: '1000'
+      GUID: '1000'
+      EXTRA_ARGS: '--no-cogs'
+    volumes:
+      - '/your/persistent/data/location:/data'
+    networks:
+      - your_network
+#######################################################
+networks:
+  your_network:
+    name: your_network
+#######################################################
 ```
 
 And again, subsequent runs you can omit the `OWNER`, `TOKEN`, and `PREFIX`es from the docker-compose.yml file.
@@ -99,7 +139,7 @@ And again, subsequent runs you can omit the `OWNER`, `TOKEN`, and `PREFIX`es fro
 
 If you find out that Red-DiscordBot was updated, simply issue the `[p]restart` command. Red-DiscordBot will gracefully shut down, update itself, and then start back up.
 
-Consider using the [UpdateNotify](https://github.com/PhasecoreX/PCXCogs) cog I created to get notifications when Red-DiscordBot (or this Docker image) updates!
+Consider using the [UpdateNotify](https://github.com/PhasecoreX/PCXCogs) cog PhasecoreX created to get notifications when Red-DiscordBot (or this Docker image) updates!
 
 ## More Advanced Stuff
 
@@ -120,13 +160,13 @@ Any software that needs to communicate to Red-DiscordBot via RPC can only do so 
 `redbot-setup` can be run manually, in case you want to set up the bot yourself or to convert it's datastore. It can only be run in interactive mode, like so:
 
 ```
-docker run -it --rm -v /local_folder_for_persistence:/data phasecorex/red-discordbot redbot-setup [OPTIONS] COMMAND [ARGS]...
+docker run -it --rm -v /local_folder_for_persistence:/data shardbyte/bot-red redbot-setup [OPTIONS] COMMAND [ARGS]...
 ```
 
 By default, Red-DiscordBot will use the JSON datastore. If you would like to use a different datastore (Postgres for example), specify it in the `STORAGE_TYPE` environment variable:
 
 ```
-docker run -it --rm -v /local_folder_for_persistence:/data -e STORAGE_TYPE=postgres phasecorex/red-discordbot redbot-setup [OPTIONS] COMMAND [ARGS]...
+docker run -it --rm -v /local_folder_for_persistence:/data -e STORAGE_TYPE=postgres shardbyte/bot-red redbot-setup [OPTIONS] COMMAND [ARGS]...
 ```
 
 You can [check the official Red-DiscordBot documentation](https://docs.discord.red/en/latest/install_linux_mac.html#installing-red) to find out what datastores are available. The example on the page looks like this:
@@ -165,22 +205,16 @@ When running directly from the terminal, specify multiple arguments at once by s
 
 - `-e EXTRA_ARGS="--no-cogs --dry-run --debug"`
 
-If using a compose file, do not use quotes:
+If using a compose file, you do not need to use quotes:
 
-```
-environment:
-  TZ: America/Detroit
-  PUID: 1000
-  PREFIX: .
-  EXTRA_ARGS: --no-cogs --dry-run --debug
-```
-or
-```
-environment:
-  - TZ=America/Detroit
-  - PUID=1000
-  - PREFIX=.
-  - EXTRA_ARGS=--no-cogs --dry-run --debug
+```yaml
+    environment:
+      TOKEN: 'YOUR_BOT_TOKEN'
+      TZ: 'Etc/UTC'
+      PREFIX: '/'
+      PUID: '1000'
+      GUID: '1000'
+      EXTRA_ARGS: '--no-cogs --dry-run --debug'
 ```
 
 The typical user will not need to use this environment variable.
@@ -201,7 +235,7 @@ This image will run Red-DiscordBot as a non-root user. This is great, until you 
 Some pip packages will require external libraries, so some of the popular ones (the ones I need for my bot) are included in the `extra`/`extra-audio` tag. If you find that Red-DiscordBot cannot install a popular cog, you can either let me know for including the package in this tag, or you can extend this image, running `apt-get install -y --no-install-recommends` to install your dependencies:
 
 ```dockerfile
-FROM phasecorex/red-discordbot
+FROM shardbyte/bot-red
 
 RUN apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -245,14 +279,14 @@ Basically, pick if you want bare minimum (core) or extra 3rd party cog support (
 ### core-pylav (Alias: pylav, latest-pylav)
 Same as core, but it adds the [PyLav cogs](https://github.com/PyLav/Red-Cogs) to the bot for users using the JSON driver.
 
-> **Note**
+> [!NOTE]
 > If you are not using the JSON config driver with Red, PyLav Cogs can be loaded after running `[p]addpath /data/pylav/cogs`
 > If you use the JSON config driver, this image will automatically install the PyLav repo and cogs for you.
 > This image will always keep the PyLav dependencies and cog up to date on every restart.
 
 Make sure to read [pylav.yaml Setup (Docker)](https://github.com/PyLav/PyLav/blob/master/SETUP.md#pylavyaml-setup-docker) and [Docker Compose](https://github.com/PyLav/PyLav/blob/master/SETUP.md#with-docker) to see the mountable volumes, and environment variables.
 
-> **Warning**
+> [!WARNING]
 > PyLav requires a PostgresSQL Database to store its data, this is completely independent to Red's Postgres config driver.
 > PyLav requires adittional configuration not covered here, make sure to follow the instructions in its SETUP documentation.
 
@@ -260,13 +294,13 @@ Make sure to read [pylav.yaml Setup (Docker)](https://github.com/PyLav/PyLav/blo
 ### extra-pylav (Alias: full-pylav)
 Same as extra, but it adds the [PyLav cogs](https://github.com/PyLav/Red-Cogs) to the bot for users using the JSON driver.
 
-> **Note**
+> [!NOTE]
 > If you are not using the JSON config driver with Red, PyLav Cogs can be loaded after running `[p]addpath /data/pylav/cogs`
 > If you use the JSON config driver, this image will automatically install the PyLav repo and cogs for you.
 > This image will always keep the PyLav dependencies and cog up to date on every restart.
 
 Make sure to read [pylav.yaml Setup (Docker)](https://github.com/PyLav/PyLav/blob/master/SETUP.md#pylavyaml-setup-docker) and [Docker Compose](https://github.com/PyLav/PyLav/blob/master/SETUP.md#with-docker) to see the mountable volumes, and environment variables.
 
-> **Warning**
+> [!WARNING]
 > PyLav requires a PostgresSQL Database to store its data, this is completely independent to Red's Postgres config driver.
 > PyLav requires adittional configuration not covered here, make sure to follow the instructions in its SETUP documentation.
