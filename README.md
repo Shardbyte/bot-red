@@ -18,7 +18,7 @@
 ---
 
 <div id="header" align="center">
-  <img src="img/bot-red-shardbyte.png" alt="bot-red-shardbyte" width="150"/>
+  <img src="img/bot-red-shardbyte.png" alt="bot-red-shardbyte"/>
 </div>
 
 
