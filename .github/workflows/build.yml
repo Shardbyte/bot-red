@@ -27,7 +27,7 @@ jobs:
       packages: write
     env:
       TITLE: bot-red
-      GHCR_SLUG: ghcr.io/Shardbyte/bot-red
+      GHCR_SLUG: ghcr.io/shardbyte/bot-red
       DOCK_SLUG: docker.io/shardbyte/bot-red
     steps:
       -
